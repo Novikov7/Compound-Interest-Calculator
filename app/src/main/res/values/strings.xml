@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Compound Interest Calculator</string>
+    <string-array name="numbers">
+        <item>Ежемесячно</item>
+        <item>Ежегодный</item>
+    </string-array>
 </resources>
