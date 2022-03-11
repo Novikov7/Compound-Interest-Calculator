@@ -11,7 +11,7 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_field4"
+        android:id="@+id/Years"
         android:layout_width="380dp"
         android:layout_height="48dp"
         android:layout_marginStart="13dp"
@@ -31,22 +31,22 @@
         android:layout_marginTop="20dp"
         android:text="Годы"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_field3" />
+        app:layout_constraintTop_toBottomOf="@+id/InterestRate" />
 
     <EditText
-        android:id="@+id/user_field3"
+        android:id="@+id/InterestRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
         android:ems="10"
-        android:hint="Введите ваш интерес %"
+        android:hint="Введите ставку %"
         android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_field2"
+        android:id="@+id/Contribution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
@@ -65,7 +65,7 @@
         android:layout_marginTop="24dp"
         android:text="Регулярный вклад $"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_field" />
+        app:layout_constraintTop_toBottomOf="@+id/InitialAmount" />
 
     <TextView
         android:id="@+id/textView3"
@@ -73,9 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Интерес %"
+        android:text="Годовая процентная ставка %"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_field2" />
+        app:layout_constraintTop_toBottomOf="@+id/Contribution" />
 
     <TextView
         android:id="@+id/textView"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_field"
+        android:id="@+id/InitialAmount"
         android:layout_width="377dp"
         android:layout_height="51dp"
         android:layout_marginStart="13dp"
@@ -100,31 +100,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="fdd"
-        app:layout_constraintBottom_toBottomOf="@+id/user_field3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_field3"
-        app:layout_constraintTop_toTopOf="@+id/user_field3"
-        tools:ignore="DuplicateIds,MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="fdd"
-        app:layout_constraintBottom_toBottomOf="@+id/user_field2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_field2"
-        app:layout_constraintTop_toTopOf="@+id/user_field2"
-        tools:ignore="MissingConstraints" />
+
+
 
     <Button
         android:id="@+id/main_btn"
@@ -134,7 +112,7 @@
         android:text="Рассчитать"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_field4" />
+        app:layout_constraintTop_toBottomOf="@+id/Years" />
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"
@@ -149,4 +127,5 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
+
 
