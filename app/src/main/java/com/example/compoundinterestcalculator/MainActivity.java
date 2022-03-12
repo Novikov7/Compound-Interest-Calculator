@@ -107,8 +107,15 @@ public class MainActivity extends AppCompatActivity {
     public void drawChart(List<PointValue> values){
         chart.setInteractive(false);
 
-        Axis axisX = Axis.generateAxisFromRange(0,20,1);
-        Axis axisY = Axis.generateAxisFromRange(0,2000,100);
+        Axis axisX = new Axis();
+        axisX.setMaxLabelChars(6);
+        axisX.setTextColor(Color.BLACK);
+        axisX.setLineColor(Color.BLACK);
+
+        Axis axisY = new Axis();
+        axisY.setMaxLabelChars(6);
+        axisY.setTextColor(Color.BLACK);
+        axisY.setLineColor(Color.BLACK);
 
         Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
         List<Line> lines = new ArrayList<Line>();
