@@ -2,6 +2,8 @@ package com.example.compoundinterestcalculator;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import static lecho.lib.hellocharts.gesture.ZoomType.HORIZONTAL_AND_VERTICAL;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +14,6 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,16 +37,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText user_field2;
     private EditText user_field3;
     private EditText user_field4;
-
     private Button main_btn;
     private LineChartView chart;
 
-    @Nullable
     @Override
-    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         initView();
         initListeners();
-        return super.onCreateView(parent, name, context, attrs);
     }
 
     public void initView(){
@@ -68,25 +67,67 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
     public void calculatePercent(String InitialAmountText, String  ContributionText, String InterestRateText, String YearsText) {
-        Integer InitialAmount = Integer.valueOf(InitialAmountText);
-        Integer Contribution = Integer.valueOf(ContributionText);
-        Integer InterestRate = Integer.valueOf(InterestRateText);
-        Integer Years = Integer.valueOf(YearsText);
 
-        Integer result = InitialAmount * (InterestRate / 10);
+        Integer InitialAmount = stringToInt(InitialAmountText);
+        Integer Contribution = stringToInt(ContributionText);
+        Integer InterestRate = stringToInt(InterestRateText);
+        Integer Years = stringToInt(YearsText);
+
+
+        /*Integer result = InitialAmount * (InterestRate / 10);
         Integer result2 = result * (InterestRate / 10);
         Integer result3 = result2 * (InterestRate / 10);
         Integer result4 = result3 * (InterestRate / 10);
-        Integer result5 = result4 * (InterestRate / 10);
+        Integer result5 = result4 * (InterestRate / 10);*/
+         drawChart();
+
+
     }
 
+    public static int stringToInt(String param) {
+        try {
+            return Integer.valueOf(param);
+        } catch(NumberFormatException e) {
+            return 0;
+        }
+    }
 
+    public void drawChart(){
+        chart.setInteractive(false);
 
+        Axis axisX = Axis.generateAxisFromRange(0,20,1);
+        Axis axisY = Axis.generateAxisFromRange(0,20,1);
+
+        List<PointValue> values = new ArrayList<PointValue>();
+        values.add(new PointValue(0, 1));
+        values.add(new PointValue(0.5F, 4));
+        values.add(new PointValue(1.3F, 5));
+        values.add(new PointValue(1.7F, 6));
+        values.add(new PointValue(2, 7));
+        values.add(new PointValue(2.5F, 8));
+        values.add(new PointValue(2.8F, 9));
+        values.add(new PointValue(3, 10));
+        values.add(new PointValue(3.5F, 11));
+        values.add(new PointValue(4, 15));
+
+        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
+        List<Line> lines = new ArrayList<Line>();
+        lines.add(line);
+
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+        chart.setLineChartData(data);
+
+        ChartData chartData = chart.getChartData();
+        chartData.setAxisXBottom(axisX);
+        chartData.setAxisYLeft(axisY);
+        chartData.setValueLabelBackgroundColor(Color.BLACK);
+        chartData.setValueLabelsTextColor(Color.BLACK);
+        chartData.finish();
+
+        chart.setVisibility(View.VISIBLE);
+
+    }
 }
