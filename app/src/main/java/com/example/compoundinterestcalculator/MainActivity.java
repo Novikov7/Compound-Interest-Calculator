@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.ChartData;
@@ -69,20 +71,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculatePercent(String InitialAmountText, String  ContributionText, String InterestRateText, String YearsText) {
 
-        Integer InitialAmount = stringToInt(InitialAmountText);
-        Integer Contribution = stringToInt(ContributionText);
-        Integer InterestRate = stringToInt(InterestRateText);
-        Integer Years = stringToInt(YearsText);
+        Integer initialAmount = stringToInt(InitialAmountText);
+        Integer contribution = stringToInt(ContributionText);
+        Integer interestRate = stringToInt(InterestRateText);
+        Integer years = stringToInt(YearsText);
+
+        List<PointValue> points = calculatePointValues(initialAmount, contribution, interestRate, years);
+        drawChart(points);
+    }
 
 
-        /*Integer result = InitialAmount * (InterestRate / 10);
-        Integer result2 = result * (InterestRate / 10);
-        Integer result3 = result2 * (InterestRate / 10);
-        Integer result4 = result3 * (InterestRate / 10);
-        Integer result5 = result4 * (InterestRate / 10);*/
-         drawChart();
+    public List<PointValue> calculatePointValues(Integer initialAmount, Integer contributionAmount, Integer interestRate, Integer years) {
+        List<PointValue> points = new ArrayList<>();
 
+        float decimalInterestRate = interestRate.floatValue()/100;
 
+        float previousSum = initialAmount;
+
+        for(float i=0; i<years; i++){
+            float resultSum = previousSum + contributionAmount + ((previousSum + contributionAmount) * decimalInterestRate);
+            previousSum = resultSum;
+            points.add(new PointValue(i, resultSum));
+        }
+        return points;
     }
 
     public static int stringToInt(String param) {
@@ -93,23 +104,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void drawChart(){
+    public void drawChart(List<PointValue> values){
         chart.setInteractive(false);
 
         Axis axisX = Axis.generateAxisFromRange(0,20,1);
-        Axis axisY = Axis.generateAxisFromRange(0,20,1);
-
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 1));
-        values.add(new PointValue(0.5F, 4));
-        values.add(new PointValue(1.3F, 5));
-        values.add(new PointValue(1.7F, 6));
-        values.add(new PointValue(2, 7));
-        values.add(new PointValue(2.5F, 8));
-        values.add(new PointValue(2.8F, 9));
-        values.add(new PointValue(3, 10));
-        values.add(new PointValue(3.5F, 11));
-        values.add(new PointValue(4, 15));
+        Axis axisY = Axis.generateAxisFromRange(0,2000,100);
 
         Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
         List<Line> lines = new ArrayList<Line>();
