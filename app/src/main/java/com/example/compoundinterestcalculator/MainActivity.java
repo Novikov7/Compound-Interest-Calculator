@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         float previousSum = initialAmount;
 
         for(float i=0; i<years; i++){
-            float resultSum = previousSum + contributionAmount + ((previousSum + contributionAmount) * decimalInterestRate);
+            float resultSum = (previousSum + contributionAmount) * decimalInterestRate + (previousSum + contributionAmount);
             previousSum = resultSum;
             points.add(new PointValue(i, resultSum));
         }
@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
         chart.setLineChartData(data);
 
+
+        //вызывается всегда в конце
         ChartData chartData = chart.getChartData();
         chartData.setAxisXBottom(axisX);
         chartData.setAxisYLeft(axisY);
